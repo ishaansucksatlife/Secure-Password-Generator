@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>Secure Password Generator</title>
+  <style>
+    body {
+      background: linear-gradient(135deg, #0e1736 0%, #051a2d 100%);
+      min-height: 100vh;
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Segoe UI', Arial, sans-serif; color: #baffff;
+      box-shadow: 0 0 100px #1affea55 inset;
+    }
+    .container {
+      background: #0a1626ee;
+      padding: 2.1rem 2.6rem 2.2rem;
+      border-radius: 24px;
+      box-shadow: 0 0 38px 7px #36ffffb4, 0 0 140px #0ef0ff44;
+      text-align: center; width: 420px; max-width:99vw;
+      margin:3vh auto;
+      position:relative;
+    }
+    h1 {
+      font-size:2.2rem;
+      margin-bottom:1.2rem;
+      letter-spacing:2px;
+      color: #10fafe;
+      text-shadow: 0 0 12px #13fffc, 0 0 34px #08c0c3;
+    }
+    .options {
+      display: flex; justify-content: space-between; margin-top: 1em; flex-wrap:wrap;
+      color: #afffff; font-weight: 500;
+      text-shadow:0 0 4px #29eef71f;
+    }
+    .options label { margin-top: .3rem; }
+    .options input[type="checkbox"] { margin-right: 5px; }
+    input, button, select {
+      font-size: 1rem;
+      border: none;
+      margin-top: 1rem;
+      border-radius: 8px;
+      padding: .6rem 1rem;
+      background: #0a2848;
+      color: #57fcf8;
+      box-shadow: 0 0 6.5px #1affee60 inset;
+      transition: box-shadow .13s;
+    }
+    input:focus, button:focus {
+      outline: 2px solid #13fff2;
+      box-shadow: 0 0 21px #2dfffeb7, 0 0 4px #fff8;
+    }
+    .main-generate-btn {
+      font-size: 1.18em; padding: 0.8em 2.6em; margin:28px auto 10px;
+      background: linear-gradient(90deg,#11ffd0 0,#56e3ff 55%,#13ecff 100%);
+      color: #0c1f23;
+      border-radius: 13px;
+      box-shadow: 0 6px 26px #00f7ff70,0 0 21px #2affff8a;
+      font-weight:860;
+      border:none;
+      display:block;
+      text-shadow:0 0 11px #17eefc85;
+      letter-spacing:1.6px;
+      transition:.17s;
+    }
+    .main-generate-btn:active{box-shadow:0 0 7px #31e7fade;}
+    .main-generate-btn:hover{background:linear-gradient(88deg,#38dbc4 24%,#00cfff 87%);}
+    .meter-container {
+      width:100%; background: #16283f; border-radius:13px;
+      margin:11px auto 3px; height: 20px; text-align:left;padding:0;
+      overflow: hidden; box-shadow:inset 0 2px 8px #12e6ffe1;
+    }
+    #strength-bar {
+      height:20px; border-radius:13px;
+      width:0%; background: #00fff3;
+      transition: width .32s cubic-bezier(.77,.01,.78,1.04),background .21s;
+      box-shadow: 0 0 16px #24fef6dd, 0 0 21px #35d5ffe2;
+    }
+    #strength-text {padding-left:10px; font-size:1.08em; font-weight:700; color:#2fffff; text-shadow:0 0 15px #13e5ff;}
+    #crack-time {font-size:.99em; margin-left:5px; color:#afffff;}
+    .pw-group {margin-bottom:10px;}
+    .output, .pw-line {
+      font-size: 1.08rem; background: #13334f;
+      padding: .37rem .47rem; margin: 1px auto 1px; border-radius: 7px;
+      color: #17fff2; font-family: monospace; word-break: break-all;
+      min-height:1.2em; display:inline-block; width:93.5%;
+      letter-spacing:2px; transition:.26s background;
+      box-shadow: 0 0 8px #16fffb41, 0 0 2px #02ffe5;
+    }
+    .pw-actions {margin-bottom:6px;}
+    .btn-sm {font-size:.95em; padding:.28em 1.1em;margin:0 2px;box-shadow:0 0 7px #0ef6e896;}
+    button {background: linear-gradient(91deg,#00fff3 10%,#15bbe8 80%);
+      color: #041920; margin-left: 5px; font-weight: bold;  border:none;}
+    button:active {transform:scale(.98);}
+    button:hover { opacity: .93; box-shadow:0 0 17px #81fffddb;}
+    .toggle-btn {background:#0297a7; color:#d0fdfd;}
+    .clear-btn  {background:#0c4444;color:#bfffff;}
+    .history-section{
+      margin:10px 0 5px; padding: 10px;
+      background: rgba(10,36,58,0.91); border-radius:13px;
+      font-size:.98em;
+      min-height:28px; max-height:140px; overflow-y:auto;
+      box-shadow: 0 0 22px #0dfcfb3a inset;
+      animation:.5s fadebox;
+    }
+    @keyframes fadebox{0%{background:rgba(23,40,62,0);}100%{background:rgba(10,36,58,0.91);}}
+    .hide{display:none;}
+    .stats {
+      color: #70ffff; margin:8px 0 7px; font-size:1em;
+      text-align:left; padding:4px 7px;border-radius:8px;
+      background:rgba(14,80,110,.32); box-shadow:0 0 18px #19fcff3b inset;
+    }
+    .tooltip{
+      border-radius:9px; background:#33ffdcee;
+      color:#042a37; font-size:.96em;
+      position: absolute; right:18px; top:9px;
+      padding:.53em 1.15em; box-shadow:0 2px 21px #12f7ff99;
+      z-index:2; opacity:.98; max-width:340px;
+      font-weight:600; text-shadow:0 0 8px #00000036;
+      transition:.28s transform,.24s opacity;
+      transform:scale(1.03);
+      visibility: hidden; pointer-events:none;
+    }
+    .info-icon:hover ~ .tooltip, .info-icon:focus ~ .tooltip{
+      visibility: visible; opacity:1; transform:scale(1.02);
+    }
+    .info-icon{
+      display:inline-block;width:1.23em;height:1.23em;
+      border-radius:50%; background:#15fff7;
+      color:#03373f; margin-left:.66em;font-size:1.07em;
+      font-weight: 900; line-height:1.19em; vertical-align:middle;
+      text-align:center; cursor:pointer; position:relative; top:2px;
+      box-shadow:0 1.5px 11px #2efffe;
+      text-shadow:0 0 7px #1aeffeeb;
+    }
+    .confirm{
+      position:absolute;left:50%;transform:translate(-50%,10px);
+      color:#18fff0;
+      background: #0b3751e3;border-radius:5px;
+      padding:3px 13px;font-size:.97em;z-index:20;
+      border:1.8px solid #13f4ff9c;min-width:44px;
+      margin-bottom:6px;
+      opacity:0; pointer-events:none;
+      animation:popfade 1.5s;
+      text-shadow:0 0 15px #22e5ff;
+    }
+    @keyframes popfade {
+      10%{ opacity:1; transform:translate(-50%,4px) scale(1.07);}
+      17%{opacity:1;}
+      97%{ opacity:1;}
+      100%{ opacity:0; }
+    }
+    .footer-github {
+      margin-top:38px; font-size: 1.1em;
+      color: #53fff9;
+      text-shadow: 0 0 16px #29f6f8e6;
+    }
+    .footer-github a {
+      color: #61f7ff; text-decoration: underline; font-weight: 700;
+      letter-spacing: 0.35px; font-size: 1em; transition: color .15s,background .18s;
+      background:rgba(0,255,255,0.13); border-radius:8px;padding:.07em .23em;
+    }
+    .footer-github a:hover {
+      color: #040404;
+      background: #00edff;
+      box-shadow:0 0 22px #1affffa0;
+    }
+    @media (max-width: 500px) {
+      .container{width:99vw;min-width:0;padding:.58rem;}
+      .meter-container{height:15px;}
+      .output,.pw-line{font-size:.89rem;}
+    }
+  </style>
+</head>
+<body>
+  <div class="container" tabindex="-1" id="container">
+    <h1>Secure Password Generator
+      <span class="info-icon" tabindex="0" aria-label="Show rules" onclick="toggleTip(event)">i</span>
+      <span class="tooltip" id="tipbox">
+        <b>Strong passwords:</b> 12+ chars, using multiple character types.<br>
+        The bar & analysis use modern attack rates (~1 trillion guesses/sec)!<br>
+        Password history is only saved in your browser.
+      </span>
+    </h1>
+    <div class="options">
+      <label>Length: <input type="number" id="length" min="1" max="40" value="14" style="width:55px;"></label>
+      <label><input type="checkbox" id="upper" checked>Uppercase</label>
+      <label><input type="checkbox" id="lower" checked>Lowercase</label>
+    </div>
+    <div class="options">
+      <label><input type="checkbox" id="numbers" checked>Numbers</label>
+      <label><input type="checkbox" id="symbols">Symbols</label>
+      <label><input type="checkbox" id="noambig">No ambiguous</label>
+      <label><span style="font-size:90%"># passwords:</span>
+        <input type="number" id="multi" min="1" max="10" value="1" style="width:33px;">
+      </label>
+    </div>
+    <button class="main-generate-btn" onclick="generatePassword()">Generate Passwords</button>
+    <div class="meter-container" title="Password strength">
+      <div id="strength-bar"></div>
+    </div>
+    <div>
+      <span id="strength-text"></span>
+      <span id="crack-time"></span>
+    </div>
+    <div class="pw-group" id="password"></div>
+    <div class="pw-actions">
+      <button class="copy-btn btn-sm" onclick="copyPassword()">Copy First</button>
+      <button class="btn-sm" style="background:#01384a;color:#9ff;" onclick="copyAll()">Copy All</button>
+      <button class="toggle-btn btn-sm" onclick="toggleHide()">Show/Hide</button>
+    </div>
+    <div class="stats" id="pwstats"></div>
+    <div>
+      <span style="color:#7efbff;font-size:.91em;">Session History</span>
+      <button class="clear-btn btn-sm" onclick="clearHistory()">Clear</button>
+    </div>
+    <div class="history-section" id="pwhistory"></div>
+    <div class="confirm" id="confirm"></div>
+    <div class="footer-github">
+      Made by <a href="https://github.com/ishaansucksatlife" target="_blank" rel="noopener noreferrer">ishaansucksatlife</a>
+    </div>
+  </div>
+<script>
+let passwords=[], showPw = false, pwHistory = [];
+if(sessionStorage.getItem('pwHistory')){
+  pwHistory = JSON.parse(sessionStorage.getItem('pwHistory'));
+}
+
+function getSettings() {
+  return {
+    length: parseInt(document.getElementById('length').value),
+    upper: document.getElementById('upper').checked,
+    lower: document.getElementById('lower').checked,
+    numbers: document.getElementById('numbers').checked,
+    symbols: document.getElementById('symbols').checked,
+    noambig: document.getElementById('noambig').checked,
+    multi: parseInt(document.getElementById('multi').value)
+  }
+}
+
+function getCharsetSize(settings){
+  let sz = 0;
+  if(settings.upper)  sz += settings.noambig ? 22 : 26;
+  if(settings.lower)  sz += settings.noambig ? 22 : 26;
+  if(settings.numbers)sz += settings.noambig ? 8 : 10;
+  if(settings.symbols)sz += 18;
+  return sz;
+}
+function entropy(pw, settings){
+  const charsetSz = getCharsetSize(settings);
+  if(!pw || !charsetSz) return 0;
+  return pw.length * Math.log2(charsetSz);
+}
+
+const stageLabels = [
+  { pct: 10, label: "Very Weak" },
+  { pct: 25, label: "Weak" },
+  { pct: 45, label: "Okay" },
+  { pct: 60, label: "Good" },
+  { pct: 75, label: "Strong" },
+  { pct: 92, label: "Very Strong" },
+  { pct: 100, label: "Max Strength" },
+];
+function stageLabel(score) {
+  for (let i = stageLabels.length-1; i >=0; i--) {
+    if (score >= stageLabels[i].pct) return stageLabels[i].label;
+  }
+  return "Very Weak";
+}
+function smoothHue(scorePct){
+
+  let hue;
+  if (scorePct <= 40) hue = 0 + 40*(scorePct/40); 
+  else if (scorePct <= 60) hue = 40 + 20*((scorePct-40)/20); 
+  else if (scorePct <= 75) hue = 60 + 60*((scorePct-60)/15); 
+  else if (scorePct <= 92) hue = 120 + 80*((scorePct-75)/17); 
+  else hue = 200 + (340-200)*((scorePct-92)/8); 
+  return `hsl(${hue},98%,53%)`;
+}
+function crackTime(ent, guessesPerSec=1e12){
+  const totalGuesses = Math.pow(2, ent);
+  let sec = totalGuesses / guessesPerSec;
+  const s = [60, 60, 24, 365.25, 100, 1000];
+  const names = ['s','min','hr','day','yr','cen','mil yr'];
+  if(sec<1) return 'Inst. (<1s)';
+  for(let i=0;i<s.length;i++){
+    if(sec<s.slice(0,i+1).reduce((a,b)=>a*b,1))
+      return (Math.round(sec/s.slice(0,i).reduce((a,b)=>a*b,1)*10)/10)+' '+names[i];
+  }
+  return '>1B yr';
+}
+function strengthScore(pw,settings){
+
+  let ent = entropy(pw,settings);
+  let score = Math.max(0, Math.min(100, Math.round(ent)));
+
+  if(pw.length<6) return 0;
+  return score;
+}
+function updateStrength(pw,settings){
+  const bar = document.getElementById('strength-bar');
+  const label = document.getElementById('strength-text');
+  const crack = document.getElementById('crack-time');
+  let score = strengthScore(pw,settings);
+  let barPct = Math.min(score, 100); 
+  bar.style.width = barPct+'%';
+  bar.style.background = smoothHue(barPct);
+  label.textContent = stageLabel(barPct);
+  if (!pw || !settings) crack.textContent = '';
+  else {
+    let ent = entropy(pw,settings);
+    crack.textContent = '| Crack: ' + crackTime(ent);
+  }
+}
+
+function makePassword(settings) {
+  let chars = '';
+  if (settings.upper) chars += settings.noambig ? 'ABCDEFGHJKMNPQRSTUVWXYZ' : 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+  if (settings.lower) chars += settings.noambig ? 'abcdefghjkmnpqrstuvwxyz' : 'abcdefghijklmnopqrstuvwxyz';
+  if (settings.numbers) chars += settings.noambig ? '23456789' : '0123456789';
+  if (settings.symbols) chars += '!@#$%^&*()_+-=<>?{}[]';
+  if (!chars) return '';
+  let arr = [];
+  for (let i = 0; i < settings.length; i++)
+    arr.push(chars.charAt(Math.floor(Math.random() * chars.length)));
+  return arr.join('');
+}
+
+function generatePassword(triggerHist=true) {
+  let settings = getSettings();
+  passwords = [];
+  if (settings.multi<1 || settings.multi>10) settings.multi=1;
+  let multi = Math.max(1,Math.min(10,settings.multi));
+  let outDiv = document.getElementById('password');
+  outDiv.innerHTML = '';
+  let firstPw = '';
+  for(let m=0; m<multi; m++) {
+    let pw = makePassword(settings);
+    let line = document.createElement('div');
+    line.className = 'output pw-line';
+    line.textContent = showPw ? pw : '*'.repeat(pw.length);
+    outDiv.appendChild(line);
+    passwords.push(pw);
+    if(m===0) firstPw = pw;
+  }
+
+  if (triggerHist) pushHistory(passwords);
+
+  updateStrength(firstPw,settings); 
+  showStats(firstPw);
+  document.getElementById('container')?.focus();
+}
+
+function copyPassword() {
+  if(!passwords[0] || passwords[0]==='Choose at least one character set!') return;
+  navigator.clipboard.writeText(passwords[0]);
+  showConfirm('Copied!');
+}
+function copyAll(){
+  if(passwords.length<1) return;
+  navigator.clipboard.writeText(passwords.join('\\n'));
+  showConfirm('All copied!');
+}
+function showStats(str){
+  let statsDiv = document.getElementById('pwstats');
+  if(!str) { statsDiv.textContent=''; return; }
+  let a = analyze(str);
+  statsDiv.textContent = `Upper: ${a.up}   Lower: ${a.low}   Num: ${a.num}   Sym: ${a.sym}`;
+}
+function toggleHide(){
+  showPw=!showPw;
+  let outs = document.querySelectorAll('.pw-line');
+  for(let i=0;i<passwords.length;i++){
+    outs[i].textContent = showPw ? passwords[i] : '*'.repeat(passwords[i].length);
+  }
+  renderHistory();
+}
+function pushHistory(newpws){
+  if(!newpws || newpws.length<1) return;
+  for (let pw of newpws){
+    if (!pwHistory.includes(pw)){
+      pwHistory.push(pw);
+      if(pwHistory.length>30) pwHistory.shift();
+    }
+  }
+  sessionStorage.setItem('pwHistory',JSON.stringify(pwHistory));
+  renderHistory();
+}
+function renderHistory(){
+  let hbox = document.getElementById('pwhistory');
+  hbox.innerHTML = pwHistory.length? pwHistory.slice(-10).reverse().map(
+    pw=>`<div class="output" style="margin:2px auto 2px;width:90%">${showPw?pw:'*'.repeat(pw.length)}</div>`
+  ).join('') : '<i style="opacity:.7">No password history in session</i>';
+}
+function clearHistory(){
+  pwHistory = [];
+  sessionStorage.removeItem('pwHistory');
+  renderHistory();
+}
+function showConfirm(msg){
+  let c = document.getElementById('confirm');
+  c.textContent=msg||'Copied!';
+  c.style.opacity=1; c.classList.remove('hide');
+  c.style.animation='none'; c.offsetWidth; c.style.animation=null;
+  setTimeout(()=>{c.classList.add('hide')},1400);
+}
+function toggleTip(e){
+  let tip = document.getElementById('tipbox');
+  tip.style.visibility = tip.style.visibility==='visible'?'hidden':'visible';
+  e.stopPropagation();
+}
+document.addEventListener('keydown', function(e){
+  if (e.key==='Enter') { generatePassword(); }
+});
+for (let id of ['length','upper','lower','numbers','symbols','noambig','multi']){
+  document.getElementById(id).addEventListener('input',function(){generatePassword(false);});
+}
+document.querySelector('.toggle-btn').addEventListener('click',renderHistory);
+document.body.addEventListener('click',function(){ document.getElementById('tipbox').style.visibility='hidden'; });
+window.onload = function(){
+  generatePassword(false); renderHistory();
+};
+</script>
+</body>
+</html>
