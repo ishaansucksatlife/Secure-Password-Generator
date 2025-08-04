@@ -21,7 +21,7 @@ Generate, copy, and manage passwords—see how *long* yours would take to crack,
 
 ## 💻 Try it out
 
-[**GitHub Pages Demo »**](https://ishaansucksatlife.github.io/repository-name/)  
+[**GitHub Pages Demo »**]([https://ishaansucksatlife.github.io/repository-name/](https://ishaansucksatlife.github.io/Secure-Password-Generator))  
 *(replace with your actual GitHub Pages URL)*
 
 ---
