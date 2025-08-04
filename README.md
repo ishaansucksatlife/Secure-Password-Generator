@@ -1,6 +1,6 @@
 # 🚀 Secure Password Generator ✨
 
-A blazing-fast, neon-cyber password generator that delivers expert-level security, real-world strength analysis, entropy-based scoring, crack time estimates.
+A blazing-fast, neon-cyber password generator that delivers expert-level security, real-world strength analysis, entropy-based scoring, crack time estimates, and a striking multi-color animated UI—all in one html file!
 
 > 💡 Built by **ishaansucksatlife**
 
@@ -22,12 +22,14 @@ A blazing-fast, neon-cyber password generator that delivers expert-level securit
 
 ---
 
+<a id="about"></a>
 ## 🔒 About
 
-Secure Password Generator helps you create passwords that are truly secure—not just long or "random," but judged by modern real-world standards. It shows easy-to-understand crack time estimates, entropy scores, and a vibrant red-to-cyan animated strength bar.
+Secure Password Generator helps you create passwords that are truly secure—not just long or random, but judged by modern real-world standards. It shows easy-to-understand crack time estimates, entropy scores, and a vibrant red-to-cyan animated strength bar.
 
 ---
 
+<a id="features"></a>
 ## 🔥 Features
 
 - **Animated Neon Strength Bar:** Smoothly transitions from red to cyan per entropy/strength
@@ -42,6 +44,7 @@ Secure Password Generator helps you create passwords that are truly secure—not
 
 ---
 
+<a id="safety--transparency"></a>
 ## 🛡️ Safety & Transparency
 
 - 100% **client-side** (no data leaves your browser)
@@ -50,12 +53,14 @@ Secure Password Generator helps you create passwords that are truly secure—not
 
 ---
 
+<a id="live-demo"></a>
 ## 🌈 Live Demo
 
 👉 [**Secure Password Generator (GitHub Pages)**](https://ishaansucksatlife.github.io/Secure-Password-Generator)
 
 ---
 
+<a id="how-it-works"></a>
 ## ⚙️ How It Works
 
 - Select which character sets you want (uppercase, lowercase, numbers, symbols)
@@ -66,6 +71,7 @@ Secure Password Generator helps you create passwords that are truly secure—not
 
 ---
 
+<a id="how-to-use"></a>
 ## 📝 How To Use
 
 1. **Visit the [Live Demo](https://ishaansucksatlife.github.io/Secure-Password-Generator)**
@@ -74,6 +80,7 @@ Secure Password Generator helps you create passwords that are truly secure—not
 
 ---
 
+<a id="configuration-options"></a>
 ## ⚙️ Configuration Options
 
 | Option             | Description                                                                  |
@@ -87,6 +94,7 @@ Secure Password Generator helps you create passwords that are truly secure—not
 
 ---
 
+<a id="included-files"></a>
 ## 📂 Included Files
 
 - `index.html` – The entire app, ready to use or deploy
@@ -95,6 +103,7 @@ Secure Password Generator helps you create passwords that are truly secure—not
 
 ---
 
+<a id="license"></a>
 ## 🏷️ License
 
 Licensed under the **Apache License 2.0**.  
@@ -102,6 +111,7 @@ Author credit (ishaansucksatlife) must remain in the source and documentation.
 
 ---
 
+<a id="faq"></a>
 ## ❓ FAQ
 
 #### How is strength calculated?
@@ -118,6 +128,7 @@ Pull requests and ideas are always welcome! See [GitHub Issues](https://github.c
 
 ---
 
+<a id="need-help"></a>
 ## 💬 Need Help?
 
 Join our **Discord Support Server** for assistance, feature requests, and community support:  
