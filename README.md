@@ -22,13 +22,13 @@ A blazing-fast, neon-cyber password generator that delivers expert-level securit
 
 ---
 
-## 🔒 About
+## About
 
 Secure Password Generator helps you create passwords that are truly secure—not just long or "random," but judged by modern real-world standards. It shows easy-to-understand crack time estimates, entropy scores, and a vibrant red-to-cyan animated strength bar.
 
 ---
 
-## 🔥 Features
+## Features
 
 - **Animated Neon Strength Bar:** Smoothly transitions from red to cyan per entropy/strength
 - **Crack Time Estimator:** See exactly how long your password would take to crack at 1 trillion guesses per second
@@ -42,7 +42,7 @@ Secure Password Generator helps you create passwords that are truly secure—not
 
 ---
 
-## 🛡️ Safety & Transparency
+## Safety & Transparency
 
 - 100% **client-side** (no data leaves your browser)
 - No telemetry, no analytics, no cookies, no backend—ever
@@ -50,13 +50,13 @@ Secure Password Generator helps you create passwords that are truly secure—not
 
 ---
 
-## 🌈 Live Demo
+## Live Demo
 
 👉 [**Secure Password Generator (GitHub Pages)**](https://ishaansucksatlife.github.io/Secure-Password-Generator)
 
 ---
 
-## ⚙️ How It Works
+## How It Works
 
 - Select which character sets you want (uppercase, lowercase, numbers, symbols)
 - Set your desired password length and quantity
@@ -66,7 +66,7 @@ Secure Password Generator helps you create passwords that are truly secure—not
 
 ---
 
-## 📝 How To Use
+## How To Use
 
 1. **Visit the [Live Demo](https://ishaansucksatlife.github.io/Secure-Password-Generator)**
 2. *(OR)* Clone/download the repo and open `index.html` locally
@@ -74,7 +74,7 @@ Secure Password Generator helps you create passwords that are truly secure—not
 
 ---
 
-## 🛠️ Configuration Options
+## Configuration Options
 
 | Option             | Description                                                                  |
 |--------------------|------------------------------------------------------------------------------|
@@ -87,7 +87,7 @@ Secure Password Generator helps you create passwords that are truly secure—not
 
 ---
 
-## 📂 Included Files
+## Included Files
 
 - `index.html` – The entire app, ready to use or deploy
 - `README.md` – Setup, usage, and help (this file)
@@ -95,14 +95,14 @@ Secure Password Generator helps you create passwords that are truly secure—not
 
 ---
 
-## 🏷️ License
+## License
 
 Licensed under the **Apache License 2.0**.  
 Author credit (ishaansucksatlife) must remain in the source and documentation.
 
 ---
 
-## ❓ FAQ
+## FAQ
 
 #### How is strength calculated?
 Uses entropy (bits), not just length or checked boxes. Real security rates and character variety are considered.
@@ -118,7 +118,7 @@ Pull requests and ideas are always welcome! See [GitHub Issues](https://github.c
 
 ---
 
-## 💬 Need Help?
+## Need Help?
 
 Join our **Discord Support Server** for assistance, feature requests, and community support:  
 👉 [![Discord](https://img.shields.io/badge/Discord-%235865F2.svg?style=for-the-badge&logo=discord&logoColor=white)](https://discord.com/invite/HazvsVHxyE)
